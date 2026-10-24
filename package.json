@@ -1,0 +1,76 @@
+{
+  "name": "ai-img-alt-text",
+  "displayName": "AI Image Alt Text",
+  "description": "Generate accessible image alt text with a local Ollama vision model.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onCommand:ai-img-alt-text.fillMissingAltText",
+    "onCommand:ai-img-alt-text.configureOllama"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-img-alt-text.fillMissingAltText",
+        "title": "AI Image Alt Text: Fill Missing Alt Text in File"
+      },
+      {
+        "command": "ai-img-alt-text.configureOllama",
+        "title": "AI Image Alt Text: Configure Ollama"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ai-img-alt-text.fillMissingAltText",
+        "key": "cmd+shift+a",
+        "when": "editorTextFocus && (editorLangId == html || editorLangId == javascriptreact || editorLangId == typescriptreact)"
+      }
+    ],
+    "configuration": {
+      "title": "AI Image Alt Text",
+      "properties": {
+        "ai-img-alt-text.ollamaUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Base URL of the local Ollama server. Asked on first use when empty."
+        },
+        "ai-img-alt-text.model": {
+          "type": "string",
+          "default": "",
+          "description": "Installed Ollama vision model used to generate alt text. Asked on first use when empty."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.140.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "24.x",
+    "typescript-eslint": "^8.61.1",
+    "eslint": "^10.5.0",
+    "typescript": "^6.0.3",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  }
+}
